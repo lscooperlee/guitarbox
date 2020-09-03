@@ -1,16 +1,17 @@
 #ifndef DRUMKITPLAYER_H
 #define DRUMKITPLAYER_H
 
+#include "Rhythm.h"
+
 class DrumPattern;
 
 class DrumkitPlayer {
 public:
-  DrumkitPlayer() = default;
+  DrumkitPlayer(Rhythm &rhythm_);
   void play(const DrumPattern &);
-  void set_bpm(int new_bpm);
 
 private:
-  int bpm = 60;
+  Rhythm &rhythm;
 };
 
 #endif /* DRUMKITPLAYER_H */

@@ -1,7 +1,11 @@
 #include "DrumkitPlayer.h"
+#include "DrumPattern.h"
+#include "Rhythm.h"
 
 #include <chrono>
 
-void DrumkitPlayer::play(const DrumPattern &pattern) {}
+DrumkitPlayer::DrumkitPlayer(Rhythm& rhythm_) : rhythm(rhythm_){
+};
 
-void DrumkitPlayer::set_bpm(int new_bpm) { bpm = new_bpm; }
+void DrumkitPlayer::play(const DrumPattern &pattern) {
+}

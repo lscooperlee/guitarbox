@@ -10,7 +10,7 @@ DIRNAME     := dirname
 
 APP=uinput
 
-LDFLAGS = -lsndfile
+LDFLAGS = -lsndfile -ljack -pthread
 CFLAGS = -Wall -Wextra -I. -DDEBUG -g -O2 -std=c++2a
 
 OUTDIR=./.out
