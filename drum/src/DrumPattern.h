@@ -74,6 +74,7 @@ class DrumPattern {
 public:
   using DrumGroup = std::vector<res_types::Drumkit>;
   using Hit = std::vector<DrumGroup>;
+  using audio_type = std::shared_ptr<std::vector<float>>;
 
   DrumPattern() = default;
 
@@ -84,7 +85,7 @@ public:
 
 private:
   std::vector<Hit> resource = {};
-  std::vector<std::vector<float>> audio_data = {};
+  std::vector<audio_type> audio_data = {};
   void load_res_files();
 };
 

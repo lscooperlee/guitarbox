@@ -41,8 +41,11 @@ void DrumPattern::load_res_files() {
         }
       }
 
-      audio_data.emplace_back(max_buf_size, 0.0);
-      auto &out = audio_data.back();
+      audio_data.emplace_back(
+          std::make_shared<std::vector<float>>(max_buf_size, 0.0));
+      // audio_data.emplace_back(std::shared_ptr<std::vector<float>>(max_buf_size,
+      // 0.0)); audio_data.emplace_back(audio_type(max_buf_size, 0.0));
+      auto &out = *audio_data.back();
       for (const auto &k : hit) {
         ranges::transform(out, data_array[k], out.begin(), std::plus<float>{});
       }

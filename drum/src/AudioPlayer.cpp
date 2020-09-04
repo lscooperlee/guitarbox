@@ -4,8 +4,7 @@
 
 typedef jack_default_audio_sample_t sample_t;
 
-void AudioPlayer::play()
-{
+void AudioPlayer::play() {
 
   jack_client_t *jack_client =
       jack_client_open("Drum machine", JackNullOption, nullptr);
