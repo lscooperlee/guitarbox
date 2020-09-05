@@ -8,4 +8,15 @@
 DrumkitPlayer::DrumkitPlayer(Rhythm &rhythm_, AudioPlayer &player_)
     : rhythm(rhythm_), player(player_){};
 
-void DrumkitPlayer::play(const DrumPattern &pattern_) { pattern = pattern_; }
+void DrumkitPlayer::play(const DrumPattern &pattern_) {
+  pattern = pattern_;
+
+  auto call = [this]() { return callback(); };
+
+  rhythm.update(call, 1);
+}
+
+void DrumkitPlayer::callback(void) {
+  player.play(pattern.data()[current_pattern]);
+  current_pattern = current_pattern == pattern.size() ? 0 : current_pattern + 1;
+}

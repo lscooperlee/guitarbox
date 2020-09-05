@@ -15,6 +15,10 @@ private:
   Rhythm &rhythm;
   AudioPlayer &player;
   DrumPattern pattern = {};
+
+  void callback(void);
+
+  unsigned int current_pattern = 0;
 };
 
 #endif /* DRUMKITPLAYER_H */

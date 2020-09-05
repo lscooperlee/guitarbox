@@ -19,5 +19,11 @@ int main(int argc, char **argv) {
   DrumkitPlayer player{r, p};
   player.play(pattern);
 
+  r.set_bpm(60);
+  r.start();
+
+  while (1)
+    ;
+
   return 0;
 }

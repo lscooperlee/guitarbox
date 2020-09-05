@@ -82,6 +82,8 @@ public:
 
   // load(const std::string& config_file);
   // load(const std::vector<Hit>& );
+  size_t size() { return audio_data.size(); };
+  const std::vector<audio_type> &data() { return audio_data; };
 
 private:
   std::vector<Hit> resource = {};
