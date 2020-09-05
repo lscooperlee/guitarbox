@@ -9,14 +9,15 @@ class AudioPlayer {
 public:
   AudioPlayer();
   ~AudioPlayer();
-  void play(DrumPattern::audio_type data);
+  void play(DrumPattern::audio_type data_);
 
 private:
   friend int process(jack_nframes_t nframes, void *data);
 
   jack_client_t *jack_client = nullptr;
   jack_port_t *out = nullptr;
-  int current_frame = 0;
+  unsigned int current_frame = 0;
+  int amp = 1;
   DrumPattern::audio_type data = {};
 };
 

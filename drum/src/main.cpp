@@ -12,7 +12,7 @@ int main(int argc, char **argv) {
   using namespace res_types;
 
   DrumPattern pattern = {{{Snare, Bell}, {}, {}, {}},
-                         {{Tom1}, {}, {}, {}},
+                         {{Tom1, Bell}, {}, {}, {}},
                          {{SideStick}, {}, {}, {}},
                          {{HatClosed}, {}, {}, {}}};
 

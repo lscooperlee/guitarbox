@@ -6,24 +6,25 @@
 typedef jack_default_audio_sample_t sample_t;
 
 int process(jack_nframes_t nframes, void *data) {
+
   AudioPlayer *player = static_cast<AudioPlayer *>(data);
+
+  if (player->data == nullptr) {
+    return 0;
+  }
+
   sample_t *out =
       static_cast<sample_t *>(jack_port_get_buffer(player->out, nframes));
 
-  //  memset(out, 0, sizeof(sample_t) * nframes);
-
-  // window->enabled_mutex.lock();
-  // if (window->enabled) {
-
   for (unsigned int i = 0; i < nframes; ++i) {
-    // if (player->cur_frame < player->wav_len) {
-    // out[i] = player->amp * player->wav[player->cur_frame];
-    //++window->cur_frame;
-    //}
+    if (player->current_frame < player->data->size()) {
+      const auto &wav = *player->data;
+      out[i] = player->amp * wav[player->current_frame];
+      ++player->current_frame;
+    } else {
+      out[i] = 0;
+    }
   }
-
-  //}
-  // window->enabled_mutex.unlock();
 
   return 0;
 }
@@ -58,6 +59,11 @@ AudioPlayer::~AudioPlayer() {
   jack_client_close(jack_client);
 }
 
-void AudioPlayer::play(DrumPattern::audio_type data) {
-  std::cout << "audio play" << std::endl;
+void AudioPlayer::play(DrumPattern::audio_type data_) {
+  if (data_->empty()) {
+    return;
+  }
+  data = data_;
+  current_frame = 0;
+  std::cout << "jack play" << std::endl;
 }

@@ -37,7 +37,7 @@ void Rhythm::stop() {}
 
 void Rhythm::set_bpm(int bpm_) {
   bpm = bpm_;
-  duration = chrono::milliseconds(bpm * 1000 / 60 / common_product);
+  duration = chrono::milliseconds(60 * 1000 / bpm / common_product);
 }
 
 void Rhythm::update(std::function<void(void)> func, int d) {
