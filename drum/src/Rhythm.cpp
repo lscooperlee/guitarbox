@@ -1,6 +1,7 @@
 #include "Rhythm.h"
 
 #include <chrono>
+#include <iostream>
 #include <numeric>
 #include <thread>
 #include <tuple>
@@ -12,6 +13,7 @@ void Rhythm::start() {
 
   std::thread t([this]() {
     int count = common_product;
+
     while (true) {
       if (is_stop)
         return;
@@ -28,6 +30,10 @@ void Rhythm::start() {
       }
 
       count--;
+      if (count == 0) {
+        count = common_product;
+      }
+      std::cout << count << std::endl;
     }
   });
   t.detach();

@@ -78,17 +78,24 @@ public:
 
   DrumPattern() = default;
 
-  DrumPattern(std::initializer_list<Hit> l) : resource(l) { load_res_files(); };
+  DrumPattern(std::initializer_list<Hit> l)
+      : resource(l), beat_per_measure(l.size()) {
+    load_res_files();
+  };
 
   // load(const std::string& config_file);
   // load(const std::vector<Hit>& );
-  size_t size() { return audio_data.size(); };
+  std::tuple<size_t, size_t> size() {
+    return {beat_per_measure, hit_per_beat};
+  };
   const std::vector<audio_type> &data() { return audio_data; };
 
 private:
   std::vector<Hit> resource = {};
   std::vector<audio_type> audio_data = {};
   void load_res_files();
+  size_t beat_per_measure = {};
+  size_t hit_per_beat = {};
 };
 
 #endif /* DRUMPATTERN_H */

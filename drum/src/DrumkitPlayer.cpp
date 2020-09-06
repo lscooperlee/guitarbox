@@ -12,15 +12,15 @@ void DrumkitPlayer::play(const DrumPattern &pattern_) {
   pattern = pattern_;
 
   auto call = [this]() { return callback(); };
-
-  rhythm.update(call, 4);
+  auto hit_per_beat = std::get<1>(pattern.size());
+  rhythm.update(call, hit_per_beat);
 }
 
 #include <iostream>
 
 void DrumkitPlayer::callback(void) {
-  std::cout << current_pattern << std::endl;
+  std::cout << "Drumkit play: " << current_pattern << std::endl;
+  auto [beat, hit] = pattern.size();
   player.play(pattern.data()[current_pattern]);
-  current_pattern =
-      current_pattern >= pattern.size() - 1 ? 0 : current_pattern + 1;
+  current_pattern = current_pattern >= beat * hit - 1 ? 0 : current_pattern + 1;
 }
