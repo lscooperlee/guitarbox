@@ -10,6 +10,7 @@ class DrumkitPlayer {
 public:
   DrumkitPlayer(Rhythm &rhythm_, AudioPlayer &player);
   void play(const DrumPattern &);
+  void set_bpm(int bpm);
 
 private:
   Rhythm &rhythm;

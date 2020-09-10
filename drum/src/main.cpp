@@ -1,48 +1,43 @@
 #include "AudioPlayer.h"
-#include "DrumPattern.h"
+#include "CtrlState.h"
 #include "DrumkitPlayer.h"
 #include "Rhythm.h"
 
+#include <emi/emi.h>
+#include <iostream>
 #include <memory>
+#include <unistd.h>
 
 Rhythm r = {};
 AudioPlayer p = {};
 
+CtrlState c = DrumCtrlState(DrumkitPlayer(r, p));
+
+constexpr eu32 EMI_MSG_KEY = 101;
+
+int emi_msg_handler(emi_msg const *msg) {
+  c = c.handle(msg->cmd);
+
+  return 0;
+}
+
 int main(int argc, char **argv) {
-  using namespace res_types;
 
-  // DrumPattern test = {{{Kick}}, {{Snare}}, {{Ride}}, {{HatOpen}}};
-  DrumPattern test = {{{Kick}}, {{Kick}}, {{Kick}}, {{Kick}}};
+  if (emi_init()) {
+    std::cout << "Failed to init emi" << std::endl;
+    return -1;
+  }
 
-  DrumPattern Billie_Jean = {{{Kick, HatClosed}, {}, {}, {}},
-                             {{HatClosed}, {}, {}, {}},
-                             {{Snare, HatClosed}, {}, {}, {}},
-                             {{HatClosed}, {}, {}, {}}};
+  if (emi_msg_register(EMI_MSG_KEY, emi_msg_handler)) {
+    std::cout << "Failed to register emi msg" << std::endl;
+    return -1;
+  }
 
-  DrumPattern Cold_Sweat = {{{Kick, Ride}, {}, {}, {}},
-                            {{Kick, Ride}, {}, {}, {}},
-                            {{Snare, Ride}, {}, {}, {}},
-                            {{Ride}, {}, {Snare}, {}}};
-
-  DrumPattern Walk_This_Way = {{{Kick, HatOpen}, {}, {HatClosed}, {}},
-                               {{Snare, HatClosed}, {}, {HatClosed}, {Kick}},
-                               {{Kick, HatClosed}, {}, {Kick, HatClosed}, {}},
-                               {{Snare, HatClosed}, {}, {HatClosed}, {}}};
-
-  DrumPattern Impeach_the_president = {
-      {{Kick, HatClosed}, {}, {HatClosed}, {}},
-      {{Snare, HatClosed}, {}, {HatClosed}, {Kick, HatClosed}},
-      {{Kick, HatClosed}, {}, {HatOpen}, {}},
-      {{Snare, HatClosed}, {}, {Kick, HatClosed}, {}}};
-
-  DrumkitPlayer player{r, p};
-  player.play(test);
-
-  r.set_bpm(60);
   r.start();
 
-  while (1)
-    ;
+  while (1) {
+    pause();
+  }
 
   return 0;
 }

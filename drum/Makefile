@@ -8,9 +8,9 @@ RM          := rm -f
 DIRNAME     := dirname
 
 
-APP=uinput
+APP=guitarbox
 
-LDFLAGS = -lsndfile -ljack -pthread
+LDFLAGS = -lsndfile -ljack -pthread -lemi
 CFLAGS = -Wall -Wextra -I. -DDEBUG -g -O2 -std=c++2a
 
 OUTDIR=./.out

@@ -16,6 +16,8 @@ void DrumkitPlayer::play(const DrumPattern &pattern_) {
   rhythm.update(call, hit_per_beat);
 }
 
+void DrumkitPlayer::set_bpm(int bpm) { rhythm.set_bpm(bpm); }
+
 #include <iostream>
 
 void DrumkitPlayer::callback(void) {

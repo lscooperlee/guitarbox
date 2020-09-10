@@ -33,7 +33,6 @@ void Rhythm::start() {
       if (count == 0) {
         count = common_product;
       }
-      std::cout << count << std::endl;
     }
   });
   t.detach();
