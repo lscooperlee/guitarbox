@@ -11,12 +11,20 @@
 Rhythm r = {};
 AudioPlayer p = {};
 
-CtrlState c = DrumCtrlState(DrumkitPlayer(r, p));
+// CtrlState *c = new DrumCtrlState(DrumkitPlayer(r, p));
+std::unique_ptr<CtrlState> c =
+    std::make_unique<DrumCtrlState>(DrumkitPlayer(r, p));
 
 constexpr eu32 EMI_MSG_KEY = 101;
 
 int emi_msg_handler(emi_msg const *msg) {
-  c = c.handle(msg->cmd);
+  std::cout << msg->msg << ", " << msg->cmd << std::endl;
+  //  c.reset(c->handle(msg->cmd));
+  //  c = std::unique_ptr<CtrlState>(c->handle(msg->cmd));
+  auto next = c->handle(msg->cmd);
+  if (c.get() != next) {
+    c.reset(next);
+  }
 
   return 0;
 }
@@ -33,11 +41,7 @@ int main(int argc, char **argv) {
     return -1;
   }
 
-  r.start();
-
-  while (1) {
-    pause();
-  }
+  r.start(false);
 
   return 0;
 }

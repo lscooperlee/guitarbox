@@ -9,12 +9,15 @@ int process(jack_nframes_t nframes, void *data) {
 
   AudioPlayer *player = static_cast<AudioPlayer *>(data);
 
-  if (player->data == nullptr) {
-    return 0;
-  }
-
   sample_t *out =
       static_cast<sample_t *>(jack_port_get_buffer(player->out, nframes));
+
+  if (player->data == nullptr) {
+    for (unsigned int i = 0; i < nframes; ++i) {
+      out[i] = 0;
+    }
+    return 0;
+  }
 
   for (unsigned int i = 0; i < nframes; ++i) {
     if (player->current_frame < player->data->size()) {

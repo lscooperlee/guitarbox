@@ -5,20 +5,25 @@
 
 #include <chrono>
 
+#include <iostream>
+
 DrumkitPlayer::DrumkitPlayer(Rhythm &rhythm_, AudioPlayer &player_)
     : rhythm(rhythm_), player(player_){};
 
 void DrumkitPlayer::play(const DrumPattern &pattern_) {
   pattern = pattern_;
 
-  auto call = [this]() { return callback(); };
   auto hit_per_beat = std::get<1>(pattern.size());
-  rhythm.update(call, hit_per_beat);
+  rhythm.update(this, hit_per_beat);
+  std::cout << "play " << hit_per_beat << std::endl;
 }
 
-void DrumkitPlayer::set_bpm(int bpm) { rhythm.set_bpm(bpm); }
+void DrumkitPlayer::stop() {}
 
-#include <iostream>
+void DrumkitPlayer::set_bpm(int bpm) {
+  std::cout << "player change bpm: " << bpm << std::endl;
+  rhythm.set_bpm(bpm);
+}
 
 void DrumkitPlayer::callback(void) {
   std::cout << "Drumkit play: " << current_pattern << std::endl;

@@ -9,16 +9,22 @@
 class Rhythm {
 
 public:
+  class RhythmType {
+  public:
+    virtual void callback() = 0;
+  };
+
   Rhythm() = default;
-  void start();
+  void start(bool);
   void stop();
   void set_bpm(int bpm_);
-  void update(std::function<void(void)>, int);
+  void update(RhythmType *, int);
+  void remove(RhythmType *);
 
 private:
+  void run(void);
   std::chrono::milliseconds duration = {};
-  std::vector<std::tuple<std::function<void(void)>, const int, int>> actions =
-      {};
+  std::vector<std::tuple<RhythmType *, int, int>> actions = {};
   std::thread timer = {};
   bool is_stop = false;
   int bpm = 60;

@@ -1,10 +1,11 @@
 #ifndef CTRLSTATE_H
 #define CTRLSTATE_H
 
+#include <iostream>
+
 class CtrlState {
 public:
-  virtual ~CtrlState() = default;
-  virtual CtrlState &handle(unsigned int /*key*/) { return *this; };
+  virtual CtrlState *handle(unsigned int /*key*/) = 0;
 };
 
 #include "DrumkitPlayer.h"
@@ -12,7 +13,7 @@ public:
 class DrumCtrlState : public CtrlState {
 public:
   DrumCtrlState(DrumkitPlayer player_);
-  CtrlState &handle(unsigned int /*key*/) override;
+  CtrlState *handle(unsigned int /*key*/) override;
 
 private:
   DrumkitPlayer player;

@@ -1,6 +1,8 @@
 #include "CtrlState.h"
 #include "DrumPattern.h"
 
+#include <iostream>
+
 namespace {
 
 using namespace res_types;
@@ -29,17 +31,28 @@ DrumPattern Impeach_the_president = {
 } // namespace
 
 DrumCtrlState::DrumCtrlState(DrumkitPlayer player_) : player(player_){};
-CtrlState &DrumCtrlState::handle(unsigned int key) {
+CtrlState *DrumCtrlState::handle(unsigned int key) {
   switch (key) {
+  case '0':
+    player.stop();
+    break;
   case '1':
     player.play(Billie_Jean);
     break;
+  case 'a':
+  case 'A':
+    break;
   case '*':
-    player.set_bpm(drum_bpm < 60 ? 60 : drum_bpm - 5);
+    drum_bpm = drum_bpm <= 60 ? 60 : drum_bpm - 5;
+    player.set_bpm(drum_bpm);
+    break;
+  case '#':
+    drum_bpm = drum_bpm >= 120 ? 120 : drum_bpm + 5;
+    player.set_bpm(drum_bpm);
     break;
   default:
     break;
   }
 
-  return *this;
+  return this;
 }

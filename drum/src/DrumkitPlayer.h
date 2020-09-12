@@ -2,14 +2,15 @@
 #define DRUMKITPLAYER_H
 
 #include "DrumPattern.h"
+#include "Rhythm.h"
 
-class Rhythm;
 class AudioPlayer;
 
-class DrumkitPlayer {
+class DrumkitPlayer : public Rhythm::RhythmType {
 public:
   DrumkitPlayer(Rhythm &rhythm_, AudioPlayer &player);
   void play(const DrumPattern &);
+  void stop();
   void set_bpm(int bpm);
 
 private:
@@ -17,7 +18,7 @@ private:
   AudioPlayer &player;
   DrumPattern pattern = {};
 
-  void callback(void);
+  void callback(void) override;
 
   unsigned int current_pattern = 0;
 };
