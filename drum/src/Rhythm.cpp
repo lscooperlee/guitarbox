@@ -55,11 +55,21 @@ void Rhythm::set_bpm(int bpm_) {
   duration = chrono::milliseconds(60 * 1000 / bpm / common_product);
 }
 
-void Rhythm::update(RhythmType *t, int d) {
+void Rhythm::update(RhythmType *t, int div) {
 
-  actions.emplace_back(t, d, 0);
+  auto _ = [t](const auto &a) { return std::get<0>(a) == t; };
+  auto found = ranges::find_if(actions, _);
+  if (found == actions.end()) {
+    actions.emplace_back(t, div, 0);
+  } else {
+    std::get<1>(*found) = div;
+  }
 
-  common_product = d > 1 ? common_product * d : common_product;
+  common_product = 1;
+  for (auto &a : actions) {
+    auto d = std::get<1>(a);
+    common_product = d > 1 ? common_product * d : common_product;
+  }
 
   for (auto &a : actions) {
     std::get<2>(a) = common_product / std::get<1>(a);

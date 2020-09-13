@@ -28,25 +28,57 @@ DrumPattern Impeach_the_president = {
     {{Kick, HatClosed}, {}, {HatOpen}, {}},
     {{Snare, HatClosed}, {}, {Kick, HatClosed}, {}}};
 
+enum class Keyset {
+  key_0,
+  key_1,
+  key_2,
+  key_3,
+  key_4,
+  key_5,
+  key_6,
+  key_7,
+  key_8,
+  key_9,
+
+  key_A,
+  key_B,
+  key_C,
+  key_D,
+
+  key_E,
+  key_F,
+
+};
+
 } // namespace
 
 DrumCtrlState::DrumCtrlState(DrumkitPlayer player_) : player(player_){};
-CtrlState *DrumCtrlState::handle(unsigned int key) {
+CtrlState *DrumCtrlState::handle(unsigned int key_) {
+  auto key = static_cast<Keyset>(key_);
+
   switch (key) {
-  case '0':
+  case Keyset::key_0:
     player.stop();
     break;
-  case '1':
+  case Keyset::key_1:
     player.play(Billie_Jean);
     break;
-  case 'a':
-  case 'A':
+  case Keyset::key_2:
+    player.play(Cold_Sweat);
     break;
-  case '*':
+  case Keyset::key_3:
+    player.play(Walk_This_Way);
+    break;
+  case Keyset::key_4:
+    player.play(Impeach_the_president);
+    break;
+  case Keyset::key_A:
+    break;
+  case Keyset::key_E:
     drum_bpm = drum_bpm <= 60 ? 60 : drum_bpm - 5;
     player.set_bpm(drum_bpm);
     break;
-  case '#':
+  case Keyset::key_F:
     drum_bpm = drum_bpm >= 120 ? 120 : drum_bpm + 5;
     player.set_bpm(drum_bpm);
     break;
