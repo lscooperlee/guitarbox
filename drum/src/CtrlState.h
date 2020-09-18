@@ -20,4 +20,9 @@ private:
   int drum_bpm = 60;
 };
 
+class DummyCtrlState : public CtrlState {
+public:
+  CtrlState *handle(unsigned int /*key*/) override;
+};
+
 #endif /* CTRLSTATE_H */

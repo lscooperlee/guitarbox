@@ -35,7 +35,7 @@ int process(jack_nframes_t nframes, void *data) {
 AudioPlayer::AudioPlayer() {
   std::cout << "jack start" << std::endl;
 
-  jack_client = jack_client_open("Drum machine", JackNullOption, nullptr);
+  jack_client = jack_client_open("drum_machine", JackNullOption, nullptr);
 
   if (jack_client == nullptr) {
     std::cout << "jack open error" << std::endl;

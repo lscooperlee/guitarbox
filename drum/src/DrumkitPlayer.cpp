@@ -10,6 +10,8 @@
 DrumkitPlayer::DrumkitPlayer(Rhythm &rhythm_, AudioPlayer &player_)
     : rhythm(rhythm_), player(player_){};
 
+DrumkitPlayer::~DrumkitPlayer() { stop(); }
+
 void DrumkitPlayer::play(const DrumPattern &pattern_) {
   pattern = pattern_;
 
@@ -18,7 +20,7 @@ void DrumkitPlayer::play(const DrumPattern &pattern_) {
   std::cout << "play " << hit_per_beat << std::endl;
 }
 
-void DrumkitPlayer::stop() {}
+void DrumkitPlayer::stop() { rhythm.remove(this); }
 
 void DrumkitPlayer::set_bpm(int bpm) {
   std::cout << "player change bpm: " << bpm << std::endl;

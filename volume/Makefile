@@ -8,9 +8,9 @@ RM          := rm -f
 DIRNAME     := dirname
 
 
-APP=drum_machine
+APP=volume_ctrl
 
-LDFLAGS = -lsndfile -ljack -pthread -lemi
+LDFLAGS = -lemi
 CFLAGS = -Wall -Wextra -I. -DDEBUG -g -O2 -std=c++2a
 
 OUTDIR=./.out

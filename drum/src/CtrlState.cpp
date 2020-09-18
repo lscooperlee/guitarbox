@@ -52,6 +52,22 @@ enum class Keyset {
 
 } // namespace
 
+extern Rhythm r;
+extern AudioPlayer p;
+
+CtrlState *DummyCtrlState::handle(unsigned int key_) {
+  auto key = static_cast<Keyset>(key_);
+  switch (key) {
+  case Keyset::key_A:
+    return new DrumCtrlState(DrumkitPlayer(r, p));
+    break;
+  default:
+    break;
+  }
+
+  return this;
+}
+
 DrumCtrlState::DrumCtrlState(DrumkitPlayer player_) : player(player_){};
 CtrlState *DrumCtrlState::handle(unsigned int key_) {
   auto key = static_cast<Keyset>(key_);
@@ -73,6 +89,10 @@ CtrlState *DrumCtrlState::handle(unsigned int key_) {
     player.play(Impeach_the_president);
     break;
   case Keyset::key_A:
+    break;
+  case Keyset::key_D:
+    player.stop();
+    return new DummyCtrlState();
     break;
   case Keyset::key_E:
     drum_bpm = drum_bpm <= 60 ? 60 : drum_bpm - 5;

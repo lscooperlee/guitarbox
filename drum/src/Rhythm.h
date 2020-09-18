@@ -23,7 +23,7 @@ public:
 
 private:
   void run(void);
-  std::chrono::milliseconds duration = {};
+  std::chrono::milliseconds duration{1000};
   std::vector<std::tuple<RhythmType *, int, int>> actions = {};
   std::thread timer = {};
   bool is_stop = false;

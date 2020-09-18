@@ -9,6 +9,7 @@ class AudioPlayer;
 class DrumkitPlayer : public Rhythm::RhythmType {
 public:
   DrumkitPlayer(Rhythm &rhythm_, AudioPlayer &player);
+  ~DrumkitPlayer();
   void play(const DrumPattern &);
   void stop();
   void set_bpm(int bpm);

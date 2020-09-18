@@ -34,8 +34,6 @@ void Rhythm::run() {
     if (count == 0) {
       count = common_product;
     }
-
-    std::cout << "bpm: " << bpm << std::endl;
   }
 }
 
@@ -80,5 +78,9 @@ void Rhythm::update(RhythmType *t, int div) {
 
 void Rhythm::remove(RhythmType *t) {
   auto _ = [t](const auto &a) { return std::get<0>(a) == t; };
-  ranges::remove_if(actions, _);
+  auto i = std::remove_if(actions.begin(), actions.end(), _);
+  if (i == actions.end()) {
+    return;
+  }
+  actions.erase(i, actions.end());
 }
