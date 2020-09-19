@@ -5,6 +5,7 @@
 
 class CtrlState {
 public:
+  virtual ~CtrlState() = default;
   virtual CtrlState *handle(unsigned int /*key*/) = 0;
 };
 

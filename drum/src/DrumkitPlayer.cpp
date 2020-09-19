@@ -10,7 +10,10 @@
 DrumkitPlayer::DrumkitPlayer(Rhythm &rhythm_, AudioPlayer &player_)
     : rhythm(rhythm_), player(player_){};
 
-DrumkitPlayer::~DrumkitPlayer() { stop(); }
+DrumkitPlayer::~DrumkitPlayer() {
+  std::cout << "leave" << std::endl;
+  stop();
+}
 
 void DrumkitPlayer::play(const DrumPattern &pattern_) {
   pattern = pattern_;

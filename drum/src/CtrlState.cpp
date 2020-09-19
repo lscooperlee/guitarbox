@@ -69,6 +69,7 @@ CtrlState *DummyCtrlState::handle(unsigned int key_) {
 }
 
 DrumCtrlState::DrumCtrlState(DrumkitPlayer player_) : player(player_){};
+
 CtrlState *DrumCtrlState::handle(unsigned int key_) {
   auto key = static_cast<Keyset>(key_);
 
@@ -91,7 +92,6 @@ CtrlState *DrumCtrlState::handle(unsigned int key_) {
   case Keyset::key_A:
     break;
   case Keyset::key_D:
-    player.stop();
     return new DummyCtrlState();
     break;
   case Keyset::key_E:
