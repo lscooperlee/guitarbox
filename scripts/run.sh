@@ -2,8 +2,9 @@
 
 WORKINGPATH=/home/cooper/
 
+nice -n -19 /usr/bin/jackd -P99 -dalsa -r48000 -p512 -n2 -S -M -D `cat /tmp/config` &
 #nice -n -19 /usr/bin/jackd -P99 -dalsa -r48000 -p512 -n2 -S -M -D -Chw:CODEC,0 -Phw:CODEC &
-nice -n -19 /usr/bin/jackd -P99 -dalsa -r48000 -p512 -n2 -S -M -D -Chw:Device,0 -Phw:Headphones &
+#nice -n -19 /usr/bin/jackd -P99 -dalsa -r48000 -p512 -n2 -S -M -D -Chw:Device,0 -Phw:Headphones &
 
 /usr/bin/emi_core -d
 
