@@ -37,5 +37,7 @@ do
 done
 
 #fluidsynth --server --audio-driver=jack --connect-jack-outputs /usr/share/soundfonts/FluidR3_GM.sf2 -d
+#jalv -c Drive=2 http://guitarix.sourceforge.net/plugins/gx_amp#GUITARIX
+#mpv -ao=jack --loop-file chongerfei.wav
 
 exit 0

@@ -16,11 +16,13 @@ int volume_handler(struct emi_msg const *msg) {
   case 0xe:
     if(is_volume_mode){
         system("amixer sset Master 5%-");
+//        system("amixer -c 1 sset Headphone 5db-")
     }
     break;
   case 0xf:
     if(is_volume_mode){
         system("amixer sset Master 5%+");
+//        system("amixer -c 1 sset Headphone 5db+")
     }
     break;
   default:

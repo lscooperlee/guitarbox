@@ -11,6 +11,7 @@ class Rhythm {
 public:
   class RhythmType {
   public:
+    virtual ~RhythmType() = default;
     virtual void callback() = 0;
   };
 
