@@ -37,17 +37,6 @@ def msg_func(msg):
     if msg.cmd == 0xA or msg.cmd == 0xD:
         is_effect_mode = False
 
-        if p:
-            p.terminate()
-
-        time.sleep(0.5)
-        args =['jack_connect', 'system:capture_1', 'system:playback_1']
-        Popen(args)
-
-        time.sleep(0.5)
-        args =['jack_connect', 'system:capture_1', 'system:playback_2']
-        Popen(args)
-
         return 0
 
 
@@ -56,22 +45,25 @@ def msg_func(msg):
         if p:
             p.terminate()
 
-        args = ['jalv','-c','Drive=2','http://guitarix.sourceforge.net/plugins/gx_amp#GUITARIX']
+        args = ['jalv','-c','Drive=1.8','http://guitarix.sourceforge.net/plugins/gx_amp#GUITARIX']
 
         p = Popen(args)
 
 
-        time.sleep(0.5)
+        time.sleep(1)
         args =['jack_connect', 'system:capture_1', 'GxAmplifier-X:in']
-        Popen(args)
+        t = Popen(args)
+        t.wait()
 
-        time.sleep(0.5)
+        time.sleep(0.2)
         args =['jack_connect', 'GxAmplifier-X:out', 'system:playback_1']
-        Popen(args)
+        t = Popen(args)
+        t.wait()
 
-        time.sleep(0.5)
+        time.sleep(0.2)
         args =['jack_connect', 'GxAmplifier-X:out', 'system:playback_2']
-        Popen(args)
+        t = Popen(args)
+        t.wait()
 
     elif msg.cmd == 0 and is_effect_mode:
 
