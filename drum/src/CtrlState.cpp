@@ -91,6 +91,8 @@ CtrlState *DrumCtrlState::handle(unsigned int key_) {
     break;
   case Keyset::key_A:
     break;
+  case Keyset::key_B:
+  case Keyset::key_C:
   case Keyset::key_D:
     return new DummyCtrlState();
     break;

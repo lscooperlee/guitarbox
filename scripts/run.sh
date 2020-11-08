@@ -28,13 +28,13 @@ do
 	sleep 0.1
 done
 
-for i in 1 2 3
-do
-	/usr/bin/jack_connect system:capture_1 system:playback_1
-	sleep 0.1
-	/usr/bin/jack_connect system:capture_1 system:playback_2
-	sleep 0.1
-done
+#for i in 1 2 3
+#do
+	#/usr/bin/jack_connect system:capture_1 system:playback_1
+	#sleep 0.1
+	#/usr/bin/jack_connect system:capture_1 system:playback_2
+	#sleep 0.1
+#done
 
 #fluidsynth --server --audio-driver=jack --connect-jack-outputs /usr/share/soundfonts/FluidR3_GM.sf2 -d
 #jalv -c Drive=2 http://guitarix.sourceforge.net/plugins/gx_amp#GUITARIX
