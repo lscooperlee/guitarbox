@@ -1,0 +1,1 @@
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="08bb", ATTRS{idProduct}=="2902", RUN+="/bin/sh -c '/bin/echo codec > /tmp/config'"
