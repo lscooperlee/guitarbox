@@ -45,7 +45,7 @@ def msg_func(msg):
         if p:
             p.terminate()
 
-        args = ['jalv','-c','Drive=1.8','http://guitarix.sourceforge.net/plugins/gx_amp#GUITARIX']
+        args = ['jalv', '-i', '-c', 'Drive=1.8', 'http://guitarix.sourceforge.net/plugins/gx_amp#GUITARIX']
 
         p = Popen(args)
 
