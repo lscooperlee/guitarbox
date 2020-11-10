@@ -15,6 +15,9 @@ cd $WORKINGPATH/virtual_keyboard/linux
 cd $WORKINGPATH/guitarbox/volume/
 .out/bin/volume_ctrl &
 
+#cd $WORKINGPATH/guitarbox/effects/
+#python effects.py &
+
 cd $WORKINGPATH/guitarbox/drum/
 chrt --rr 99 .out/bin/drum_machine &
 
