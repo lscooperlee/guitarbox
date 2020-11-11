@@ -15,8 +15,8 @@ cd $WORKINGPATH/virtual_keyboard/linux
 cd $WORKINGPATH/guitarbox/volume/
 .out/bin/volume_ctrl &
 
-#cd $WORKINGPATH/guitarbox/effects/
-#python effects.py &
+cd $WORKINGPATH/guitarbox/effects/
+python effects.py &
 
 cd $WORKINGPATH/guitarbox/drum/
 chrt --rr 99 .out/bin/drum_machine &
@@ -39,7 +39,8 @@ do
 	sleep 0.1
 done
 
-fluidsynth --server --audio-driver=jack --connect-jack-outputs /usr/share/soundfonts/FluidR3_GM.sf2 -d
+
+#fluidsynth --server --audio-driver=jack --connect-jack-outputs /usr/share/soundfonts/FluidR3_GM.sf2 -d # cause exit when effects.py activate
 #jalv -c Drive=2 http://guitarix.sourceforge.net/plugins/gx_amp#GUITARIX
 #mpv -ao=jack --loop-file chongerfei.wav
 
