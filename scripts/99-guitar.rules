@@ -1,1 +1,2 @@
 SUBSYSTEMS=="usb", ATTRS{idVendor}=="08bb", ATTRS{idProduct}=="2902", RUN+="/bin/sh -c '/bin/echo -Chw:CODEC,0 -Phw:CODEC > /tmp/config'"
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="0d8c", ATTRS{idProduct}=="0014", RUN+="/bin/sh -c '/bin/echo  -Chw:Device,0 -Phw:PCH > /tmp/config'"
