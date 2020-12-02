@@ -6,8 +6,6 @@ nice -n -19 /usr/bin/jackd -P99 -dalsa -r48000 -p512 -n2 -S -M -D `cat /tmp/conf
 #nice -n -19 /usr/bin/jackd -P99 -dalsa -r48000 -p512 -n2 -S -M -D -Chw:CODEC,0 -Phw:CODEC &
 #nice -n -19 /usr/bin/jackd -P99 -dalsa -r48000 -p512 -n2 -S -M -D -Chw:Device,0 -Phw:Headphones &
 
-cd $WORKINGPATH/virtual_keyboard/linux
-.out/bin/virtual_keyboard /dev/ttyAMA0 &
 
 cd $WORKINGPATH/guitarbox/volume/
 .out/bin/volume_ctrl &
@@ -15,10 +13,10 @@ cd $WORKINGPATH/guitarbox/volume/
 cd $WORKINGPATH/guitarbox/effects/
 python effects.py &
 
+sleep 1
+
 cd $WORKINGPATH/guitarbox/drum/
 chrt --rr 99 .out/bin/drum_machine &
-
-sleep 1
 
 for i in 1 2 3
 do

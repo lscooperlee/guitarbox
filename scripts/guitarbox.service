@@ -6,7 +6,7 @@
 [Service]
 Type=forking
 # Type=oneshot
- ExecStart=/etc/rc.local
+ ExecStart=/home/cooper/guitarbox/scripts/run.sh
 # TimeoutSec=0
 # StandardOutput=tty
  RemainAfterExit=yes
