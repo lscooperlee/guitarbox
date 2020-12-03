@@ -27,7 +27,7 @@ do
 done
 
 
-#fluidsynth --server --audio-driver=jack --connect-jack-outputs /usr/share/soundfonts/FluidR3_GM.sf2 -d # cause exit when effects.py activate
+fluidsynth --server --audio-driver=jack --connect-jack-outputs /usr/share/soundfonts/FluidR3_GM.sf2 -i &
 #jalv -i -c Drive=2 http://guitarix.sourceforge.net/plugins/gx_amp#GUITARIX
 #mpv -ao=jack --loop-file chongerfei.wav
 
