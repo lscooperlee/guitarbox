@@ -1,0 +1,1 @@
+SUBSYSTEM=="usb", ATTRS{idVendor}=="1acc", ATTRS{idProduct}=="1633", ACTION=="add", RUN+="/bin/sh -c 'echo > /tmp/midi'"
