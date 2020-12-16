@@ -2,7 +2,7 @@
 
 WORKINGPATH=/home/cooper/
 
-nice -n -19 /usr/bin/jackd -P99 -dalsa -r48000 -p512 -n2 -S -M -D `cat /tmp/config` &
+nice -n -19 /usr/bin/jackd -P99 -dalsa -r48000 -p128 -n2 -S -M -D `cat /tmp/config` &
 #nice -n -19 /usr/bin/jackd -P99 -dalsa -r48000 -p512 -n2 -S -M -D -Chw:CODEC,0 -Phw:CODEC &
 #nice -n -19 /usr/bin/jackd -P99 -dalsa -r48000 -p512 -n2 -S -M -D -Chw:Device,0 -Phw:Headphones &
 
@@ -27,7 +27,7 @@ do
 done
 
 
-fluidsynth --server --audio-driver=jack --connect-jack-outputs /usr/share/soundfonts/FluidR3_GM.sf2 -i &
+test -f /tmp/midi && fluidsynth --server --audio-driver=jack --connect-jack-outputs /usr/share/soundfonts/FluidR3_GM.sf2 -i &
 #jalv -i -c Drive=2 http://guitarix.sourceforge.net/plugins/gx_amp#GUITARIX
 #mpv -ao=jack --loop-file chongerfei.wav
 

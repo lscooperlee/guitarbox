@@ -8,7 +8,7 @@ RM          := rm -f
 DIRNAME     := dirname
 
 
-APP=volume_ctrl
+APP=efmgr
 
 LDFLAGS = -lemi `pkg-config -libs lilv-0`
 CFLAGS = -Wall -Wextra -I. -DDEBUG -g -O2 -std=c++2a `pkg-config --cflags lilv-0`
