@@ -5,6 +5,7 @@
 
 #include <emi/emi.h>
 
+#include "AudioPlayer.h"
 #include "plugin.h"
 
 int handler(struct emi_msg const *msg) { return 0; };
@@ -13,14 +14,19 @@ constexpr eu32 EMI_MSG_KEY = 101;
 
 int main(void) {
 
-  // emi_init();
+  // Plugin p("http://guitarix.sourceforge.net/plugins/gx_amp#GUITARIX");
+  Plugin p("http://lv2plug.in/plugins/eg-amp");
+  p.run(512);
 
-  // emi_msg_register(EMI_MSG_KEY, handler);
+  AudioPlayer player(p);
 
-  // while (1) {
-  // pause();
-  //}
+  player.play();
 
-  Plugin p("http://guitarix.sourceforge.net/plugins/gx_amp#GUITARIX");
-  p.run();
+  emi_init();
+
+  emi_msg_register(EMI_MSG_KEY, handler);
+
+  while (1) {
+    pause();
+  }
 }

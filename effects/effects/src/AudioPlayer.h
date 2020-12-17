@@ -3,10 +3,13 @@
 
 #include <jack/jack.h>
 
+#include "plugin.h"
+
 class AudioPlayer {
 public:
-  AudioPlayer();
+  AudioPlayer(Plugin &p);
   ~AudioPlayer();
+
   void play();
 
 private:
@@ -14,6 +17,9 @@ private:
 
   jack_client_t *jack_client = nullptr;
   jack_port_t *out = nullptr;
+  jack_port_t *in = nullptr;
+
+  Plugin &plugin;
 };
 
 #endif /* AUDIOPLAYER_H */

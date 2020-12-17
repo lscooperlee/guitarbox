@@ -34,6 +34,7 @@ struct Plugin {
       const LilvPort *lport = lilv_plugin_get_port_by_index(plugin, p);
 
       if (lilv_port_is_a(plugin, lport, lv2_ControlPort)) {
+
         const LilvNode *nm_nd = lilv_port_get_name(plugin, lport);
         const LilvNode *sym_nd = lilv_port_get_symbol(plugin, lport);
         auto idx = lilv_port_get_index(plugin, lport);
@@ -44,16 +45,37 @@ struct Plugin {
                   << lilv_node_as_float(def_val) << std::endl;
 
         ctrlbuf.emplace_back(2.0);
+
         lilv_instance_connect_port(instance, p, &ctrlbuf.back());
+
+        const LilvNode *nm_nd1 = lilv_port_get_name(plugin, lport);
+        const LilvNode *sym_nd1 = lilv_port_get_symbol(plugin, lport);
+        auto idx1 = lilv_port_get_index(plugin, lport);
+        auto def_val1 = lilv_port_get(plugin, lport, lv2_default);
+
+        std::cout << "Control Port " << lilv_node_as_string(nm_nd1) << ", "
+                  << lilv_node_as_string(sym_nd1) << ", " << idx1 << ", "
+                  << lilv_node_as_float(def_val1) << std::endl;
+
       } else if (lilv_port_is_a(plugin, lport, lv2_AudioPort)) {
         if (lilv_port_is_a(plugin, lport, lv2_InputPort)) {
-          inbuf.emplace_back(2.2);
+          // inbuf.emplace_back(2.2);
+          // lilv_instance_connect_port(instance, p, &inbuf.back());
+          inbuf.resize(512);
+          for (int i = 0; i < 512; ++i) {
+            inbuf[i] = 1.2;
+          }
           std::cout << "Input Port" << std::endl;
-          lilv_instance_connect_port(instance, p, &inbuf.back());
+          lilv_instance_connect_port(instance, p, inbuf.data());
         } else if (lilv_port_is_a(plugin, lport, lv2_OutputPort)) {
-          outbuf.emplace_back(3.3);
+          // outbuf.emplace_back(3.3);
+          // lilv_instance_connect_port(instance, p, &outbuf.back());
+          outbuf.resize(512);
+          for (int i = 0; i < 512; ++i) {
+            outbuf[i] = 3.2;
+          }
           std::cout << "Output Port" << std::endl;
-          lilv_instance_connect_port(instance, p, &outbuf.back());
+          lilv_instance_connect_port(instance, p, outbuf.data());
         }
       } else {
         lilv_instance_connect_port(instance, p, nullptr);
@@ -65,14 +87,14 @@ struct Plugin {
 
   ~Plugin() { lilv_instance_deactivate(instance); }
 
-  void run() {
-    lilv_instance_run(instance, 1);
-    std::cout << outbuf.back() << std::endl;
+  void run(unsigned int nframes) {
+    lilv_instance_run(instance, nframes);
+    std::cout << nframes << std::endl;
   }
 
   std::vector<float> inbuf = {};
-  std::vector<float> outbuf = {};
-  std::vector<float> ctrlbuf = {};
+  std::vector<float> outbuf = {512};
+  std::vector<float> ctrlbuf = {512};
 
   LilvInstance *instance = nullptr;
 };
