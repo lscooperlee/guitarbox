@@ -14,8 +14,9 @@ constexpr eu32 EMI_MSG_KEY = 101;
 
 int main(void) {
 
-  // Plugin p("http://guitarix.sourceforge.net/plugins/gx_amp#GUITARIX");
-  Plugin p("http://lv2plug.in/plugins/eg-amp");
+  Plugin p("https://github.com/lscooperlee/guitarbox");
+  //Plugin p("http://guitarix.sourceforge.net/plugins/gx_amp#GUITARIX");
+  //Plugin p("http://lv2plug.in/plugins/eg-amp");
   p.run(512);
 
   AudioPlayer player(p);

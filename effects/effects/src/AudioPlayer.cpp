@@ -58,8 +58,9 @@ AudioPlayer::AudioPlayer(Plugin &p) : plugin(p) {
     jack_client_close(jack_client);
     std::cout << "jack activate error" << std::endl;
   } else {
-    // jack_connect(jack_client, "drum_machine:out", "system:playback_1");
-    // jack_connect(jack_client, "drum_machine:out", "system:playback_2");
+    jack_connect(jack_client, "efmgr:out", "system:playback_1");
+    jack_connect(jack_client, "efmgr:out", "system:playback_2");
+    jack_connect(jack_client, "system:capture_1", "efmgr:in");
   }
 }
 

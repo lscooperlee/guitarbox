@@ -30,8 +30,19 @@ struct Plugin {
 
     instance = lilv_plugin_instantiate(plugin, 48000, NULL);
 
+
+
     for (uint32_t p = 0; p < n_ports; ++p) {
+
+
       const LilvPort *lport = lilv_plugin_get_port_by_index(plugin, p);
+
+		const LilvNodes* classes = lilv_port_get_classes(plugin, lport);
+		std::cout<<"\t\tType:        ";
+		LILV_FOREACH(nodes, i, classes) {
+			const LilvNode* value = lilv_nodes_get(classes, i);
+			std::cout<<lilv_node_as_uri(value)<<" ";
+		}
 
       if (lilv_port_is_a(plugin, lport, lv2_ControlPort)) {
 
@@ -44,18 +55,15 @@ struct Plugin {
                   << lilv_node_as_string(sym_nd) << ", " << idx << ", "
                   << lilv_node_as_float(def_val) << std::endl;
 
+       if (std::string("Drive") == lilv_node_as_string(nm_nd))
         ctrlbuf.emplace_back(2.0);
+       else
+        ctrlbuf.emplace_back(lilv_node_as_float(def_val));
+        //ctrlbuf.emplace_back(2.0);
 
         lilv_instance_connect_port(instance, p, &ctrlbuf.back());
 
-        const LilvNode *nm_nd1 = lilv_port_get_name(plugin, lport);
-        const LilvNode *sym_nd1 = lilv_port_get_symbol(plugin, lport);
-        auto idx1 = lilv_port_get_index(plugin, lport);
-        auto def_val1 = lilv_port_get(plugin, lport, lv2_default);
-
-        std::cout << "Control Port " << lilv_node_as_string(nm_nd1) << ", "
-                  << lilv_node_as_string(sym_nd1) << ", " << idx1 << ", "
-                  << lilv_node_as_float(def_val1) << std::endl;
+        std::cout<<ctrlbuf.back()<<std::endl;;
 
       } else if (lilv_port_is_a(plugin, lport, lv2_AudioPort)) {
         if (lilv_port_is_a(plugin, lport, lv2_InputPort)) {
@@ -89,7 +97,6 @@ struct Plugin {
 
   void run(unsigned int nframes) {
     lilv_instance_run(instance, nframes);
-    std::cout << nframes << std::endl;
   }
 
   std::vector<float> inbuf = {};

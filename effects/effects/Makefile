@@ -16,7 +16,7 @@ CFLAGS = -Wall -Wextra -I. -DDEBUG -g -O2 -std=c++2a `pkg-config --cflags lilv-0
 OUTDIR=./.out
 BINDIR=$(OUTDIR)/bin
 
-PATHDIR=$(shell find -type d) 
+PATHDIR=src
 
 SRCS= $(foreach dir,$(PATHDIR),$(wildcard $(dir)/*.cpp)) 
 PATHOBJS=$(subst ./,,$(SRCS:.cpp=.o))
